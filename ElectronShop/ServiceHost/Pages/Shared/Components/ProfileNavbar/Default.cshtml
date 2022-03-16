@@ -1,0 +1,196 @@
+﻿@model AccountViewModel
+@inject IAuthHelper authHelper
+
+<div class="header-left">
+    <div class="mini-cart-header">
+        <a style="color: #4a5f73;">
+            <span class="mdi mdi-basket"></span>
+            <span class="cart-count" id="cart_items_count">0</span>
+        </a>
+        <div class="mini-cart-dropdown">
+            <div class="header-cart-info-header">
+                <a asp-page="/Cart" class="header-cart-info-link">
+                    <span>مشاهده سبد خرید</span>
+                </a>
+            </div>
+            <div class="wrapper">
+                <div class="scrollbar" id="style-1">
+                    <div class="force-overflow">
+                        <ul class="header-basket-list" id="cart_items_wrapper">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="login-link">
+        <div class="btn-login">
+            <span class="mdi mdi-account"></span>
+            پروفایل من
+            @{
+                if (authHelper.IsAuthenticated())
+                {
+                    <div class="dropdown-menu-login">
+                        <div class="header-profile-dropdown-account">
+                            <div class="header-profile-dropdown-user">
+                                <div class="header-profile-dropdown-user-img">
+                                    @{
+                                        if (Model.ProfilePhoto != null)
+                                        {
+                                            <img src="~/Pictures/@Model.ProfilePhoto" alt="@Model.FullName" title="@Model.FullName">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Theme/assets/images/svg/user-profile.svg" alt="@Model.FullName" title="@Model.FullName">
+                                        }
+                                    }
+                                </div>
+                                <div class="header-profile-dropdown-user-info">
+                                    <p class="header-profile-dropdown-user-name">
+                                        @Model.FullName
+                                        <a asp-page="/Account/Profile/Index">
+                                            <span class="header-profile-dropdown-user-profile-link">
+                                                مشاهده حساب
+                                                کاربری
+                                            </span>
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header-profile-dropdown-actions">
+                            <div class="header-profile-dropdown-action-container">
+                                <a asp-page="/Account/Profile/Orders">
+                                    <span class="header-profile-dropdown-action-link">سفارش‌های من</span>
+                                </a>
+                            </div>
+                            <div class="header-profile-dropdown-action-container">
+                                <a asp-page="/Account/SignOut">
+                                    <span class="header-profile-dropdown-action-link">
+                                        خروج از حساب کاربری
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="dropdown-menu-login">
+                        <div class="header-profile-dropdown-actions">
+                            <div class="header-profile-dropdown-action-container">
+                                <a asp-page="/Account/SignUp">
+                                    <span class="header-profile-dropdown-action-link">
+                                        ثبت نام
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="header-profile-dropdown-action-container">
+                                <a asp-page="/Account/SignIn">
+                                    <span class="header-profile-dropdown-action-link">
+                                        ورود
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </a>
+
+    <div class="responsive-header-left">
+        <div class="btn-login-responsive">
+            <span class="mdi mdi-account"></span>
+            @{
+                if (authHelper.IsAuthenticated())
+                {
+                    <div class="dropdown-menu-login">
+                        <div class="header-profile-dropdown-account">
+                            <div class="header-profile-dropdown-user">
+                                <div class="header-profile-dropdown-user-img">
+                                    @{
+                                        if (Model.ProfilePhoto != null)
+                                        {
+                                            <img src="~/Pictures/@Model.ProfilePhoto" alt="@Model.FullName" title="@Model.FullName">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Theme/assets/images/svg/user-profile.svg" alt="@Model.FullName" title="@Model.FullName">
+                                        }
+                                    }
+                                </div>
+                                <div class="header-profile-dropdown-user-info">
+                                    <p class="header-profile-dropdown-user-name">
+                                        @Model.FullName
+                                        <a asp-page="/Account/Profile/Index">
+                                            <span class="header-profile-dropdown-user-profile-link">
+                                                مشاهده حساب
+                                                کاربری
+                                            </span>
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header-profile-dropdown-actions">
+                            <div class="header-profile-dropdown-action-container">
+                                <a asp-page="/Account/Profile/Orders">
+                                    <span class="header-profile-dropdown-action-link">سفارش‌های من</span>
+                                </a>
+                            </div>
+                            <div class="header-profile-dropdown-action-container">
+                                <a asp-page="/Account/SignOut">
+                                    <span class="header-profile-dropdown-action-link">
+                                        خروج از حساب
+                                        کاربری
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="dropdown-menu-login">
+                        <div class="header-profile-dropdown-actions">
+                            <div class="header-profile-dropdown-action-container">
+                                <a asp-page="/Account/SignUp">
+                                    <span class="header-profile-dropdown-action-link">
+                                        ثبت نام
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="header-profile-dropdown-action-container">
+                                <a asp-page="/Account/SignIn">
+                                    <span class="header-profile-dropdown-action-link">
+                                        ورود
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="mini-cart-header-responsive">
+            <span class="mdi mdi-basket"></span>
+            <span class="cart-count" id="mini_cart_items_count">0</span>
+            <div class="mini-cart-dropdown">
+                <div class="header-cart-info-header">
+                    <a asp-page="/Cart" class="header-cart-info-link">
+                        <span>مشاهده سبد خرید</span>
+                    </a>
+                </div>
+                <div class="wrapper">
+                    <div class="scrollbar" id="style-1">
+                        <div class="force-overflow">
+                            <ul class="header-basket-list" id="mini_cart_items_wrapper">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

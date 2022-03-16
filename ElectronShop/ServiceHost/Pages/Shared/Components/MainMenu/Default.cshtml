@@ -1,0 +1,133 @@
+﻿@model List<_02_ElectronShopQuery.Contracts.ProductCategory.ProductCategoryQueryModel>
+
+<div class="d-block">
+    <div>
+        <div class="col-lg-8 col-md-8 col-xs-12 pull-right">
+            <div class="header-right">
+                <div class="logo">
+                    <a asp-page="/Index"><img src="~/Theme/assets/images/shoplogo.jpg" alt="ElectronShop" title="ElectronShop"></a>
+                </div>
+                <div class="col-lg-8 col-md-12 col-xs-12 pull-right">
+                    <div class="search-header search-box">
+                        <form asp-page="/Search" method="get">
+                            <input name="search" id="search" type="text" class="header-search-input" placeholder="جستجو در الکترون شاپ...">
+                            <button class="btn-search" type="submit">
+                                <img src="~/Theme/assets/images/search.png" alt="جستجو" title="جستجو">
+                            </button>
+                        </form>
+                        <div class="search-result">
+                            <div class="search-results-list js-search-ad-banner">
+                                <a>
+                                    <img src="~/Theme/assets/images/banner-search.jpg">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-12 pull-left">
+            @await Component.InvokeAsync("ProfileNavbar")
+        </div>
+    </div>
+
+    <nav class="main-menu">
+        <ul class="new-list-menu">
+            <li class="item-list-menu megamenu-1 category nav-overlay">
+                <a class="list-category first after" style="font-weight: bold;">
+                    <i class="mdi mdi-menu"></i>
+                    دسته بندی کالاها
+                </a>
+                <ul class="list-menu-level-2">
+                    @{
+                        foreach (var productCategory in Model)
+                        {
+                            <li class="item-menu-2">
+                                <a asp-page="/ProductCategory" asp-route-id="@productCategory.Slug" class="list-category-menu-2">
+                                    <i class="mdi mdi-package-variant-closed"></i>
+                                    @productCategory.Name
+                                </a>
+
+                                <ul class="megamenu-level-3 row">
+                                    <li class="list-category">
+                                        <a class="list-category-megamenu">همه دسته بندی های @productCategory.Name</a>
+                                    </li>
+
+                                    @{
+                                        if (productCategory.ProductSubCategories != null)
+                                        {
+                                            foreach (var productSubCategory in productCategory.ProductSubCategories)
+                                            {
+                                                <li class="item-megamenu-title">
+                                                    <a asp-page="/ProductSubCategory" asp-route-id="@productSubCategory.Slug" class="list-category-megamenu-3">
+                                                        <span>
+                                                            @productSubCategory.Name
+                                                            <i class="fa fa-angle-left"></i>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            }
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    }
+                </ul>
+            </li>
+
+            <li class="item-list-menu megamenu-1 nav-overlay">
+                <a class="list-category first after" style="font-weight: bold;">
+                    <i class="mdi mdi-sale text-danger"></i>
+                    تخفیف و پیشنهاد ها
+                </a>
+                <ul class="list-menu-level-2 list-menu-discounts-offers">
+                    <li class="discounts-offers-list-item">
+                        <ul>
+                            <li class="discounts-offers-item">
+                                <a asp-page="/Discount" class="list-category-megamenu-3">
+                                    <span>
+                                        مشاهده همه تخفیف‌ ها
+                                        <i class="fa fa-angle-left"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="discounts-offers-item">
+                                <a asp-page="/Offer" class="list-category-megamenu-3">
+                                    <span>
+                                        مشاهده همه پیشنهاد ها
+                                        <i class="fa fa-angle-left"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="discounts-offers-list-item main-banner">
+                        <a href="#">
+                            <img src="~/Theme/assets/images/banner.jpg" alt="banner">
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="item-list-menu megamenu-1">
+                <a asp-page="/SuperMarket" class="list-category first after" style="font-weight: bold;">
+                    <i class="mdi mdi-store text-warning"></i>
+                    سوپر مارکت
+                </a>
+            </li>
+            <li class="item-list-menu megamenu-1">
+                <a href="#" class="list-category first after">
+                    <i class="mdi mdi-marker-check text-success"></i>
+                    الکترون شاپ من
+                </a>
+            </li>
+            <li class="item-list-menu megamenu-1">
+                <a href="#" class="list-category first after">
+                    <i class="mdi mdi-plus-outline text-primary"></i>
+                    الکترون پلاس
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

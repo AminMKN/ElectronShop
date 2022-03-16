@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"] | فروشگاه اینترنتی الکترون شاپ</title>
+    <link rel="shortcut icon" href="~/AdminTheme/assets/img/favicon.ico">
+    <link href="~/AdminTheme/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="~/AdminTheme/assets/css/sb-admin-2.css" rel="stylesheet">
+    <script src="~/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link href="~/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    @await RenderSectionAsync("Css", required: false)
+</head>
+
+<body id="page-top" dir="rtl">
+
+    <div id="wrapper">
+
+        <partial name="_Menu">
+
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <div id="content">
+
+                    @await Component.InvokeAsync("AdminProfileNavbar")
+
+                    <div class="container-fluid">
+                        @RenderBody()
+                    </div>
+                </div>
+
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>ElectronShop | @DateTime.Now.ToFarsi()</span>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+    </div>
+
+    <script src="~/AdminTheme/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/AdminTheme/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/AdminTheme/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/AdminTheme/assets/js/sb-admin-2.min.js"></script>
+    <script src="~/AdminTheme/assets/js/site.js"></script>
+    <script src="~/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

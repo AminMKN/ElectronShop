@@ -1,0 +1,56 @@
+﻿@page "{id}"
+@model ServiceHost.Areas.Admin.Pages.Inventory.OperationLogModel
+@{
+    ViewData["Title"] = "گردش انبار";
+}
+
+<h1 class="h3 mb-2 text-gray-800">@ViewData["Title"]</h1>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th>ردیف</th>
+                        <th>تعداد</th>
+                        <th>موجودی فعلی</th>
+                        <th>انجام دهنده</th>
+                        <th>عملیات</th>
+                        <th>تاریخ</th>
+                        <th>توضیحات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int row = 1;
+                        foreach (var inventoryOperation in Model.InventoryOperations)
+                        {
+                            <tr class="text-white text-center @(inventoryOperation.Operation ? "bg-success" : "bg-danger")">
+                                <td>@row</td>
+                                <td>@inventoryOperation.Count</td>
+                                <td>@inventoryOperation.CurrentCount</td>
+                                <td>@inventoryOperation.Operator</td>
+                                <td>
+                                    @{
+                                        if (inventoryOperation.Operation)
+                                        {
+                                            <span>افزایشی</span>
+                                        }
+                                        else
+                                        {
+                                            <span>کاهشی</span>
+                                        }
+                                    }
+                                </td>
+                                <td>@inventoryOperation.OperationDate</td>
+                                <td>@inventoryOperation.Description</td>
+                            </tr>
+                             row += 1;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

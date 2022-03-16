@@ -1,0 +1,67 @@
+﻿@page
+@model ServiceHost.Pages.Account.SignInModel
+@{
+    ViewData["Title"] = "ورود به الکترون شاپ";
+    Layout = "Shared/_AccountLayout";
+    if (Model.Message != null)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی الکترون شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div id="main">
+    <div class="col-lg-4 col-md-6 col-xs-12 mx-auto">
+        <div class="account-box">
+            <a class="logo-account">
+                <img class="mt-3" src="~/Theme/assets/images/shoplogo.jpg" alt="ElectronShop" title="ElectronShop">
+            </a>
+            <span class="account-head-line text-center">@ViewData["Title"]</span>
+            <div class="content-account">
+                <form method="post">
+                    <div>
+                        <label asp-for="Command.UserName" class="pull-right">نام کاربری</label>
+                        <input asp-for="Command.UserName" type="text" class="form-control" placeholder="نام کاربری">
+                        <span asp-validation-for="Command.UserName" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Command.Password" class="pull-right">کلمه عبور</label>
+                        <input asp-for="Command.Password" type="password" class="form-control" placeholder="کلمه عبور">
+                        <span asp-validation-for="Command.Password" class="text-danger"></span>
+                    </div>
+                    <a asp-page="/Account/ForgotPassword" class="account-link-password">کلمه عبور خود را فراموش کرده ام</a>
+                    <div class="parent-btn">
+                        <button type="submit" class="dk-btn dk-btn-info">
+                            ورود به الکترون شاپ
+                            <i class="fa fa-sign-in sign-in"></i>
+                        </button>
+                    </div>
+                    <div class="form-auth-row">
+                        <label for="remember" class="ui-checkbox">
+                            <input asp-for="Command.RememberMe" type="checkbox" checked="checked">
+                            <span class="ui-checkbox-check"></span>
+                        </label>
+                        <label asp-for="Command.RememberMe" class="remember-me">مرا به خاطر داشته باش</label>
+                    </div>
+                </form>
+            </div>
+            <div class="account-footer">
+                <span>کاربر جدید هستید؟</span>
+                <a asp-page="/Account/SignUp" class="btn-link-register">ثبت‌ نام در الکترون شاپ</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

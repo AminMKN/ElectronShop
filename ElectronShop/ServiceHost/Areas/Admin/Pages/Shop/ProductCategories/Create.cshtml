@@ -1,0 +1,81 @@
+﻿@page
+@model ServiceHost.Areas.Admin.Pages.Shop.ProductCategories.CreateModel
+@{
+    ViewData["Title"] = "ایجاد گروه محصول جدید";
+    if (Model.Message != null && Model.IsSuccess)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی الکترون شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message != null && !Model.IsSuccess)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی الکترون شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">@ViewData["Title"]</h6>
+    </div>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Command.Name">نام</label>
+                        <input asp-for="Command.Name" type="text" class="form-control" placeholder="نام" onchange="makeSlug('Command_Name', 'Command_Slug')" />
+                        <span asp-validation-for="Command.Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Command.Slug">اسلاگ</label>
+                        <input asp-for="Command.Slug" type="text" class="form-control" placeholder="اسلاگ" />
+                        <span asp-validation-for="Command.Slug" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Command.Keywords">کلمات کلیدی</label>
+                        <input asp-for="Command.Keywords" type="text" class="form-control" placeholder="کلمات کلیدی" />
+                        <span asp-validation-for="Command.Keywords" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Command.MetaDescription">توضیحات متا</label>
+                        <textarea asp-for="Command.MetaDescription" class="form-control" placeholder="توضیحات متا"></textarea>
+                        <span asp-validation-for="Command.MetaDescription" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-success">ایجاد</button>
+            <a class="btn btn-primary" asp-page="./Index">بازگشت</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

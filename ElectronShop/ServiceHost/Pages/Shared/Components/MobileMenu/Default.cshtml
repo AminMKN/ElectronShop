@@ -1,0 +1,75 @@
+﻿@model List<_02_ElectronShopQuery.Contracts.ProductCategory.ProductCategoryQueryModel>
+
+<nav class="sidebar">
+    <div class="nav-header">
+        <div class="header-cover"></div>
+        <div class="logo-wrap">
+            <a class="logo-icon">
+                <img src="~/Theme/assets/images/shoplogo.jpg" width="40" alt="ElectronShop" title="ElectronShop">
+            </a>
+        </div>
+    </div>
+    <ul class="nav-categories ul-base">
+        <li class="has-sub">
+            <a>
+                <i class="mdi mdi-menu"></i>
+                دسته بندی کالاها
+            </a>
+            <ul>
+                @{
+                    foreach (var productCategory in Model)
+                    {
+                        <li class="has-sub">
+                            <a asp-page="/ProductCategory" asp-route-id="@productCategory.Slug" class="category-level-2">@productCategory.Name</a>
+                            <ul>
+                                @{
+                                    if (productCategory.ProductSubCategories != null)
+                                    {
+                                        foreach (var productSubCategory in productCategory.ProductSubCategories)
+                                        {
+                                            <li><a asp-page="/ProductSubCategory" asp-route-id="@productSubCategory.Slug" class="category-level-3">@productSubCategory.Name</a></li>
+                                        }
+                                    }
+                                }
+                            </ul>
+                        </li>
+                    }
+                }
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a>
+                <i class="mdi mdi-sale text-danger"></i>
+                تخفیف و پیشنهاد ها
+            </a>
+            <ul>
+                <li><a asp-page="/Discount" class="category-level-2">مشاهده همه تخفیف ها</a></li>
+                <li><a asp-page="/Offer" class="category-level-2">مشاهده همه پیشنهاد ها</a></li>
+            </ul>
+        </li>
+        <li>
+            <a asp-page="/SuperMarket">
+                <i class="mdi mdi-store text-warning"></i>
+                سوپر مارکت
+            </a>
+        </li>
+        <li>
+            <a>
+                <i class="mdi mdi-marker-check text-success"></i>
+                الکترون شاپ من
+            </a>
+        </li>
+        <li>
+            <a>
+                <i class="mdi mdi-plus-outline text-primary"></i>
+                الکترون پلاس
+            </a>
+        </li>
+    </ul>
+</nav>
+<div class="nav-btn">
+    <span class="linee1"></span>
+    <span class="linee2"></span>
+    <span class="linee3"></span>
+</div>
+<div class="overlay"></div>

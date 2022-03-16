@@ -1,0 +1,80 @@
+﻿@model List<_02_ElectronShopQuery.Contracts.Product.ProductQueryModel>
+
+<div class="col-lg-12 col-md-12 col-xs-12 pull-right">
+    <div class="row">
+        <div class="col-12">
+            <div class="widget widget-product card">
+                <header class="card-header">
+                    <span class="title-one">محصولات پیشنهادی</span>
+                </header>
+                <div class="product-carousel owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
+                    <div class="owl-stage-outer">
+                        <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 3261px;">
+                            @{
+                                foreach (var product in Model)
+                                {
+                                    <div class="owl-item active" style="width: 455.75px; margin-left: 10px;">
+                                        <div class="item">
+                                            <a asp-page="/Product" asp-route-id="@product.Slug">
+                                                <img src="~/Pictures/@product.Picture" class="img-fluid" alt="@product.PictureAlt" title="@product.PictureTitle">
+                                            </a>
+                                            <h2 class="post-title">
+                                                <a asp-page="/Product" asp-route-id="@product.Slug">
+                                                    @product.Name
+                                                </a>
+                                            </h2>
+                                            <div class="price">
+                                                @{
+                                                    if (product.HasDiscount)
+                                                    {
+                                                        <div class="discount-item">
+                                                            <span>@product.DiscountRate%</span>
+                                                        </div>
+                                                        <del>
+                                                            <span>
+                                                                @product.Price.ToMoney()
+                                                                <span>تومان</span>
+                                                            </span>
+                                                        </del>
+                                                        <ins>
+                                                            <span>
+                                                                @product.PriceWithDiscount.ToMoney()
+                                                                <span>تومان</span>
+                                                            </span>
+                                                        </ins>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="discount-item">
+                                                            <span>‌</span>
+                                                        </div>
+                                                        <ins>
+                                                            <span>
+                                                                @product.Price.ToMoney()
+                                                                <span>تومان</span>
+                                                            </span>
+                                                        </ins>
+                                                        <del>
+                                                            <span>
+                                                                <span>‌</span>
+                                                            </span>
+                                                        </del>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="owl-nav">
+                    <button type="button" role="presentation" class="owl-prev disabled"></button>
+                    <button type="button" role="presentation" class="owl-next"></button>
+                </div>
+                <div class="owl-dots disabled"></div>
+            </div>
+        </div>
+    </div>
+</div>

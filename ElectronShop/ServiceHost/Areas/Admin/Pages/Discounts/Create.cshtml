@@ -1,0 +1,106 @@
+﻿@page
+@model ServiceHost.Areas.Admin.Pages.Discounts.CreateModel
+@{
+    ViewData["Title"] = "تعریف تخفیف جدید";
+    if (Model.Message != null && Model.IsSuccess)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی الکترون شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message != null && !Model.IsSuccess)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی الکترون شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">@ViewData["Title"]</h6>
+    </div>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Command.ProductId">محصول</label>
+                        <select class="form-control" asp-for="Command.ProductId" asp-items="Model.Products">
+                            <option value="0">محصول...</option>
+                        </select>
+                        <span asp-validation-for="Command.ProductId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Command.DiscountRate">درصد تخفیف</label>
+                        <input asp-for="Command.DiscountRate" type="number" class="form-control" placeholder="درصد تخفیف" />
+                        <span asp-validation-for="Command.DiscountRate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Command.StartDate">تاریخ شروع</label>
+                        <input asp-for="Command.StartDate" type="text" class="form-control persianDateInput" placeholder="تاریخ شروع" />
+                        <span asp-validation-for="Command.StartDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Command.EndDate">تاریخ پایان</label>
+                        <input asp-for="Command.EndDate" type="text" class="form-control persianDateInput" placeholder="تاریخ پایان" />
+                        <span asp-validation-for="Command.EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Command.Reason">علت تخفیف</label>
+                        <textarea asp-for="Command.Reason" class="form-control" placeholder="علت تخفیف"></textarea>
+                        <span asp-validation-for="Command.Reason" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-success">ایجاد</button>
+            <a class="btn btn-primary" asp-page="./Index">بازگشت</a>
+        </div>
+    </form>
+</div>
+
+@section Css
+{
+<link href="~/AdminTheme/datepicker/css/persian-datepicker.min.css" rel="stylesheet" />
+}
+
+@section Scripts
+{
+<script src="~/AdminTheme/datepicker/js/persian-date.min.js"></script>
+<script src="~/AdminTheme/datepicker/js/persian-datepicker.min.js"></script>
+<script>
+    $('.persianDateInput').persianDatepicker({
+        format: 'YYYY/MM/DD',
+        autoClose: true,
+        initialValueType: "persian"
+    });
+</script>
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

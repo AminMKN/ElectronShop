@@ -17,6 +17,13 @@ using ShopManagement.Application.Contracts.Order;
 using ShopManagement.Domain.OrderAgg;
 using ShopManagement.Application.Contracts.ShopCart;
 using ShopManagement.Domain.Services;
+using _02_ElectronShopQuery.Contracts;
+using _02_MarketShopQuery.Query;
+using ShopManagement.Infrastructure.InventoryAcl;
+using _02_ElectronShopQuery.Contracts.ProductCategory;
+using _02_ElectronShopQuery.Query;
+using _02_ElectronShopQuery.Contracts.ProductSubCategory;
+using _02_ElectronShopQuery.Contracts.Product;
 
 namespace ShopManagement.Infrastructure.Configuration
 {
@@ -24,8 +31,6 @@ namespace ShopManagement.Infrastructure.Configuration
     {
         public static void Configure(IServiceCollection services, string connectionString)
         {
-            services.AddSingleton<ICartService, CartService>();
-
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IOrderApplication, OrderApplication>();
 
@@ -43,6 +48,18 @@ namespace ShopManagement.Infrastructure.Configuration
 
             services.AddTransient<IProductSubCategoryRepository, ProductSubCategoryRepository>();
             services.AddTransient<IProductSubCategoryApplication, ProductSubCategoryApplication>();
+
+            services.AddSingleton<ICartService, CartService>();
+
+            services.AddTransient<IProductQuery, ProductQuery>();
+
+            services.AddTransient<IShopInventoryAcl, ShopInventoryAcl>();
+
+            services.AddTransient<IProductCategoryQuery, ProductCategoryQuery>();
+
+            services.AddTransient<ICartCalculatorService, CartCalculatorService>();
+
+            services.AddTransient<IProductSubCategoryQuery, ProductSubCategoryQuery>();
 
             services.AddDbContext<ShopContext>(x => x.UseSqlServer(connectionString));
         }

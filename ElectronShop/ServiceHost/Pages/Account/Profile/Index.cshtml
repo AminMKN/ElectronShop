@@ -1,0 +1,137 @@
+﻿@page
+@model ServiceHost.Pages.Account.Profile.IndexModel
+@{
+    ViewData["Title"] = "پروفایل";
+    Layout = "Shared/_AccountLayout";
+    if (Model.Message != null)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی الکترون شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="col-lg-3 col-md-4 col-xs-12">
+    <div class="sidebar-wrapper">
+        <div class="box-sidebar">
+            <div class="profile-box">
+                <div class="profile-box-avator">
+                    @{
+                        if (Model.Command.ProfilePhoto != null)
+                        {
+                            <img src="~/Pictures/@Model.Command.ProfilePhoto" alt="Profile" title="Profile">
+                        }
+                        else
+                        {
+                            <img src="~/Theme/assets/images/svg/user-profile.svg" alt="Profile" title="Profile">
+                        }
+                    }
+                </div>
+                <div class="profile-box-content">
+                    <span class="profile-box-nameuser">@Model.Command.FullName</span>
+                    <span class="profile-box-phone">@Model.Command.PhoneNumber</span>
+                </div>
+            </div>
+            <ul class="profile-menu-items">
+                <li>
+                    <a asp-page="/Account/Profile/Index" class="profile-menu-url active-profile">
+                        <span class="mdi mdi-account-outline"></span>پروفایل
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Account/Profile/Orders" class="profile-menu-url">
+                        <span class="mdi mdi-basket"></span>سفارشات
+                    </a>
+                </li>
+                <li>
+                    <a asp-page="/Account/SignOut" class="profile-menu-url">
+                        <span class="mdi mdi-power"></span>خروج
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-9 col-md-8 col-xs-12 pull-right">
+    <div class="col-lg-12 col-xs-12 pull-right">
+        <div class="headline-profile">
+            <span>اطلاعات شخصی</span>
+        </div>
+        <div class="profile-stats">
+            <div class="profile-stats-row">
+                <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
+                    <div class="profile-stats-col">
+                        <p>
+                            <span> نام و نام خانوادگی :</span>
+                            @Model.Command.FullName
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
+                    <div class="profile-stats-col">
+                        <p>
+                            <span> نام کاربری :</span>
+                            @Model.Command.UserName
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
+                    <div class="profile-stats-col">
+                        <p>
+                            <span>ایمیل :</span>
+                            @Model.Command.Email
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
+                    <div class="profile-stats-col">
+                        <p>
+                            <span>شماره موبایل :</span>
+                            @Model.Command.PhoneNumber
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
+                    <div class="profile-stats-col">
+                        <p>
+                            <span>تاریخ ثبت نام :</span>
+                            @Model.Command.CreationDate
+                        </p>
+                    </div>
+                </div>
+                <form method="post">
+                    <div class="col-lg-6 col-md-6 col-xs-12 pull-right" style="padding:0;">
+                        <div class="profile-stats-col">
+                            <p>
+                                <span>وضعیت ایمیل :</span>
+                                @{
+                                    if (Model.Command.EmailConfirmed)
+                                    {
+                                        <i class="fa fa-check" style="color:green"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-close" style="color:red"></i>
+                                        <br />
+                                        <button type="submit" class="btn btn-success">ارسال ایمیل فعال سازی</button>
+                                    }
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </form>
+                <div class="profile-stats-action">
+                    <a asp-page="/Account/Profile/Edit" class="link-spoiler-edit">
+                        <i class="fa fa-pencil"></i>ویرایش اطلاعات شخصی
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

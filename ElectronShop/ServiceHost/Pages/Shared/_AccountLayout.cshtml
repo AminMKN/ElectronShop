@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] | فروشگاه اینترنتی الکترون شاپ</title>
+    <link rel="shortcut icon" href="~/Theme/assets/images/favicon.ico">
+    <link rel="stylesheet" href="~/Theme/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Theme/assets/css/materialdesignicons.css">
+    <link type="text/plain" href="~/Theme/assets/css/materialdesignicons.css.map">
+    <link rel="stylesheet" href="~/Theme/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="~/Theme/assets/css/style.css">
+    <script src="~/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link href="~/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" >
+</head>
+<body>
+    @RenderBody()
+    <script src="~/Theme/assets/js/jquery-3.2.1.min.js"></script>
+    <script src="~/Theme/assets/js/bootstrap.js"></script>
+    <script src="~/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    @await RenderSectionAsync("Scripts",required: false)
+</body>
+</html>

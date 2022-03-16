@@ -1,0 +1,76 @@
+﻿@page
+@model ServiceHost.Pages.SearchModel
+@{
+    ViewData["Title"] = "نتیجه جستجو برای" + " " + Model.Search;
+}
+
+<div class="col-md-12">
+    <div class="js-products">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a>فروشگاه اینترنتی الکترون شاپ</a></li>
+                <li class="breadcrumb-item"><a>@ViewData["Title"]</a></li>
+            </ol>
+        </nav>
+        <div class="listing-listing">
+            <div class="listing-counter">@Model.Products.Count() کالا</div>
+            <div class="tab-content">
+                <ul class="listing-item">
+                    <li>
+                        @{
+                            foreach (var product in Model.Products)
+                            {
+                                <div class="col-md-2 pull-right px-0">
+                                    <div class="promotion-box">
+                                        <div class="product-seller-details">
+                                            <span class="product-main-seller">فروشنده : الکترون شاپ</span>
+                                        </div>
+                                        <a asp-page="/Product" asp-route-id="@product.Slug" class="promotion-box-image">
+                                            <img src="~/Pictures/@product.Picture" alt="@product.PictureAlt" title="@product.PictureTitle">
+                                        </a>
+                                        <div class="product-box-content">
+                                            <a asp-page="/Product" asp-route-id="@product.Slug" class="text-center product-box-title">
+                                                @product.Name
+                                            </a>
+                                        </div>
+                                        <div class="product-box-row">
+                                            @{
+                                                if (product.HasDiscount)
+                                                {
+                                                    <del>
+                                                        <span class="price-value-wrapper">
+                                                            @product.Price.ToMoney()
+                                                            <span class="price-currency">تومان</span>
+                                                        </span>
+                                                    </del>
+                                                    <br />
+                                                    <span class="text-danger price-value-wrapper">
+                                                        @product.PriceWithDiscount.ToMoney()
+                                                        <span class="price-currency">تومان</span>
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <del>
+                                                        <span class="price-value-wrapper">
+                                                            <span class="price-currency">‌</span>
+                                                        </span>
+                                                    </del>
+                                                    <br />
+                                                    <span class="price-value-wrapper">
+                                                        @product.Price.ToMoney()
+                                                        <span class="price-currency">تومان</span>
+                                                    </span>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+﻿@page
+@model ServiceHost.Areas.Admin.Pages.Shop.Orders.IndexModel
+@{
+    ViewData["Title"] = "سفارشات";
+}
+
+<h1 class="h3 mb-2 text-gray-800">@ViewData["Title"]</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="form-group">
+            <form class="form-inline" method="get">
+                <input asp-for="SearchModel.IsCanceled" type="checkbox" class="form-check-input mr-1" />
+                <label asp-for="SearchModel.IsCanceled" class="form-check-label mr-1">جستجو در لغو شده ها</label>
+                <input asp-for="SearchModel.IssueTrackingNo" class="form-control mr-1" placeholder="شماره پیگیری">
+                <select class="form-control mr-1" asp-for="SearchModel.AccountId" asp-items="Model.Accounts">
+                    <option value="0">کاربر...</option>
+                </select>
+                <button type="submit" class="btn btn-success mr-1">جستجو</button>
+                <a asp-page="./Index" class="btn btn-primary">مشاهده همه</a>
+            </form>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th>ردیف</th>
+                        <th>خریدار</th>
+                        <th>کل</th>
+                        <th>کل تخفیف</th>
+                        <th>پرداختی</th>
+                        <th>شماره پیگیری</th>
+                        <th>شناسه خرید</th>
+                        <th>تاریخ خرید</th>
+                        <th>کد پستی</th>
+                        <th>شماره تماس</th>
+                        <th>آدرس</th>
+                        <th>وضعیت</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int row = 1;
+                        foreach (var order in Model.Orders)
+                        {
+
+                            <tr class="text-center">
+                                <td>@row</td>
+                                <td>@order.FullName</td>
+                                <td>@order.TotalAmount.ToMoney()</td>
+                                <td>@order.DiscountAmount.ToMoney()</td>
+                                <td>@order.PayAmount.ToMoney()</td>
+                                <td>@order.IssueTrackingNo</td>
+                                <td>@order.RefId</td>
+                                <td>@order.CreationDate</td>
+                                <td>@order.PostalCode</td>
+                                <td>@order.PhoneNumber</td>
+                                <td>@order.Address</td>
+                                <td class="text-center">
+                                    @{
+                                        if (order.IsCanceled)
+                                        {
+                                            <h2> <i class="fa fa-window-close" style="color: red"></i></h2>
+                                        }
+
+                                        if (order.IsPaid)
+                                        {
+                                            <h2><i class="fa fa-check" style="color: green"></i></h2>
+                                        }
+
+                                        if (!order.IsCanceled && !order.IsPaid)
+                                        {
+                                            <h2><i class="fa fa-eye" style="color: blue"></i></h2>
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    <a asp-page="./Items" asp-route-id="@order.Id" class="btn btn-primary">آیتم ها</a>
+                                    @{
+                                        if (!order.IsCanceled && !order.IsPaid)
+                                        {
+                                            <a asp-page="./Index" asp-page-handler="Confirm" asp-route-id="@order.Id" class="btn btn-success">تایید</a>
+
+                                            <a asp-page="./Index" asp-page-handler="Cancel" asp-route-id="@order.Id" class="btn btn-danger">لغو</a>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+
+                            row += 1;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

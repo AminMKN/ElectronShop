@@ -1,0 +1,22 @@
+using _02_ElectronShopQuery.Contracts.Product;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using ShopManagement.Application.Contracts.Amazing;
+
+namespace ServiceHost.Pages
+{
+    public class OfferModel : PageModel
+    {
+        public List<ProductQueryModel> Products;
+        private readonly IProductQuery _productQuery;
+
+        public OfferModel(IProductQuery productQuery)
+        {
+            _productQuery = productQuery;
+        }
+
+        public async Task OnGet()
+        {
+            Products = await _productQuery.GetAmazings(AmazingPosition.AmazingOffer);
+        }
+    }
+}

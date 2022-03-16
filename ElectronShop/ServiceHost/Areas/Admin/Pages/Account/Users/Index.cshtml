@@ -1,0 +1,85 @@
+﻿@page
+@model ServiceHost.Areas.Admin.Pages.Account.Users.IndexModel
+@{
+    ViewData["Title"] = "کاربران";
+}
+
+<h1 class="h3 mb-2 text-gray-800">@ViewData["Title"]</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="form-group">
+            <a class="btn btn-info" asp-page="./Create">ایجاد کاربر جدید</a>
+        </div>
+        <div class="form-group">
+            <form class="form-inline" method="get">
+                <input asp-for="SearchModel.UserName" class="form-control mr-1" placeholder="نام کاربری">
+                <input asp-for="SearchModel.Email" class="form-control mr-1" placeholder="ایمیل">
+                <button type="submit" class="btn btn-success mr-1">جستجو</button>
+                <a asp-page="./Index" class="btn btn-primary">مشاهده همه</a>
+            </form>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th>ردیف</th>
+                        <th>عکس پروفایل</th>
+                        <th>نام و نام خانوادگی</th>
+                        <th>نام کاربری</th>
+                        <th>ایمیل</th>
+                        <th>وضعیت ایمیل</th>
+                        <th>شماره موبایل</th>
+                        <th>تاریخ ثبت نام</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int row = 1;
+                        foreach (var account in Model.Accounts)
+                        {
+                            <tr class="text-center">
+                                <td>@row</td>
+                                <td>
+                                    @{
+                                        if (account.ProfilePhoto != null)
+                                        {
+                                            <img src="~/Pictures/@account.ProfilePhoto" style="width: 70px; height: 70px" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/AdminTheme/assets/img/user-profile.svg" style="width: 70px; height: 70px" />
+                                        }
+                                    }
+                                </td>
+                                <td>@account.FullName</td>
+                                <td>@account.UserName</td>
+                                <td>@account.Email</td>
+                                <td>
+                                    @{
+                                        if (account.EmailConfirmed)
+                                        {
+                                            <h2><i class="fa fa-check" style="color: green"></i></h2>
+                                        }
+                                        else
+                                        {
+                                            <h2><i class="fa fa-window-close" style="color: red"></i></h2>
+                                        }
+                                    }
+                                </td>
+                                <td>@account.PhoneNumber</td>
+                                <td>@account.CreationDate</td>
+                                <td>
+                                    <a asp-page="./Edit" asp-route-id="@account.Id" class="btn btn-warning">ویرایش</a>
+                                </td>
+                            </tr>
+                             row += 1;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+﻿@page
+@model ServiceHost.Pages.Account.Profile.OrdersModel
+@{
+    ViewData["Title"] = "سفارشات";
+    Layout = "Shared/_AccountLayout";
+}
+
+<div class="col-12">
+    <div class="page-content">
+        <div class="col-lg-12 col-md-12 col-xs-12 pull-right">
+            <div class="checkout-tab">
+                <div class="checkout-tab-pill listing-active-cart">
+                    @ViewData["Title"]
+                    <span class="checkout-tab-counter">@Model.Orders.Count()</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cart-tab-main">
+        <div class="col-lg-12 col-md-12 col-xs-12 pull-right">
+            <div class="page-content-cart">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr class="text-center">
+                                <th>ردیف</th>
+                                <th>کل</th>
+                                <th>کل تخفیف</th>
+                                <th>پرداختی</th>
+                                <th>شماره پیگیری</th>
+                                <th>شناسه خرید</th>
+                                <th>تاریخ خرید</th>
+                                <th>کد پستی</th>
+                                <th>شماره تماس</th>
+                                <th>آدرس</th>
+                                <th>وضعیت</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int row = 1;
+                                foreach (var order in Model.Orders)
+                                {
+
+                                    <tr class="text-center">
+                                        <td>@row</td>
+                                        <td>@order.TotalAmount.ToMoney()</td>
+                                        <td>@order.DiscountAmount.ToMoney()</td>
+                                        <td>@order.PayAmount.ToMoney()</td>
+                                        <td>@order.IssueTrackingNo</td>
+                                        <td>@order.RefId</td>
+                                        <td>@order.CreationDate</td>
+                                        <td>@order.PostalCode</td>
+                                        <td>@order.PhoneNumber</td>
+                                        <td>@order.Address</td>
+                                        <td class="text-center">
+                                            @{
+                                                if (order.IsCanceled)
+                                                {
+                                                    <h2> <i class="fa fa-window-close" style="color: red"></i></h2>
+                                                }
+
+                                                if (order.IsPaid)
+                                                {
+                                                    <h2><i class="fa fa-check" style="color: green"></i></h2>
+                                                }
+
+                                                if (!order.IsCanceled && !order.IsPaid)
+                                                {
+                                                    <h2><i class="fa fa-eye" style="color: blue"></i></h2>
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+
+                                    row += 1;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <div class="profile-navbar">
+                        <div class="profile-navbar-back-alignment">
+                            <a asp-page="/Account/Profile/Index" class="profile-navbar-btn-back">بازگشت</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

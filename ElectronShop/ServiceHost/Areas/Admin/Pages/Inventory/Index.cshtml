@@ -1,0 +1,64 @@
+﻿@page
+@model ServiceHost.Areas.Admin.Pages.Inventory.IndexModel
+@{
+    ViewData["Title"] = "انبارداری";
+}
+
+<h1 class="h3 mb-2 text-gray-800">@ViewData["Title"]</h1>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="form-group">
+            <a class="btn btn-info" asp-page="./Create">ایجاد انبار جدید</a>
+        </div>
+        <div class="form-group">
+            <form class="form-inline" method="get">
+                <input asp-for="SearchModel.InStock" type="checkbox" class="form-check-input mr-1" />
+                <label asp-for="SearchModel.InStock" class="form-check-label mr-1">جستجو در ناموجود ها</label>
+                <select class="form-control mr-1" asp-for="SearchModel.ProductId" asp-items="Model.Products">
+                    <option value="0">محصول...</option>
+                </select>
+                <button type="submit" class="btn btn-success mr-1">جستجو</button>
+                <a asp-page="./Index" class="btn btn-primary">مشاهده همه</a>
+            </form>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th>ردیف</th>
+                        <th>محصول</th>
+                        <th>قیمت</th>
+                        <th>موجودی انبار</th>
+                        <th>تاریخ ایجاد</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int row = 1;
+                        foreach (var inventory in Model.Inventory)
+                        {
+                            <tr class="text-center">
+                                <td>@row</td>
+                                <td>@inventory.Product</td>
+                                <td>@inventory.Price.ToMoney()</td>
+                                <td>@inventory.CurrentCount</td>
+                                <td>@inventory.CreationDate</td>
+                                <td>
+                                    <a asp-page="./Increase" asp-route-id="@inventory.Id" class="btn btn-success">افزایش موجودی</a>
+                                    <a asp-page="./Reduce" asp-route-id="@inventory.Id" class="btn btn-danger">کاهش موجودی</a>
+                                    <a asp-page="./OperationLog" asp-route-id="@inventory.Id" class="btn btn-primary">مشاهده گردش انبار</a>
+                                    <a asp-page="./Edit" asp-route-id="@inventory.Id" class="btn btn-warning">ویرایش</a>
+                                </td>
+                            </tr>
+                             row += 1;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

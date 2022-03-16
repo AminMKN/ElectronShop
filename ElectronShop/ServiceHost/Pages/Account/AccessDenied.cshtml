@@ -1,0 +1,12 @@
+﻿@page
+@model ServiceHost.Pages.Account.AccessDeniedModel
+@{
+    ViewData["Title"] = "صفحه‌ای که دنبال آن بودید پیدا نشد!";
+    Layout = "Shared/_AccountLayout";
+}
+
+<div class="page-404">
+    <h1 class="title-404">@ViewData["Title"]</h1>
+    <a asp-page="/Index" class="action-404">صفحه اصلی</a>
+    <img src="~/Theme/assets/images/images-404.png" class="images-404" alt="404" title="404">
+</div>

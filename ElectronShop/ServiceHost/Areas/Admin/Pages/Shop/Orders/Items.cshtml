@@ -1,0 +1,40 @@
+﻿@page "{id}"
+@model ServiceHost.Areas.Admin.Pages.Shop.Orders.ItemsModel
+@{
+    ViewData["Title"] = "آیتم های سفارش";
+}
+
+<h1 class="h3 mb-2 text-gray-800">@ViewData["Title"]</h1>
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th>ردیف</th>
+                        <th>محصول</th>
+                        <th>تعداد</th>
+                        <th>قیمت واحد</th>
+                        <th>درصد تخفیف</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int row = 1;
+                        foreach (var orderItem in Model.OrderItems)
+                        {
+                            <tr>
+                                <td>@row</td>
+                                <td>@orderItem.Product</td>
+                                <td>@orderItem.Count</td>
+                                <td>@orderItem.Price.ToMoney()</td>
+                                <td>@orderItem.DiscountRate%</td>
+                            </tr>
+                        }
+                        row += 1;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

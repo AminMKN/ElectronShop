@@ -1,0 +1,57 @@
+﻿@page
+@model ServiceHost.Areas.Admin.Pages.Account.UserClaims.IndexModel
+@{
+    ViewData["Title"] = "دسترسی ها";
+}
+
+<h1 class="h3 mb-2 text-gray-800">@ViewData["Title"]</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="form-group">
+            <a class="btn btn-info" asp-page="./Create">ایجاد دسترسی کاربر جدید</a>
+        </div>
+        <div class="form-group">
+            <form class="form-inline" method="get">
+                <select class="form-control mr-1" asp-for="SearchModel.AccountId" asp-items="Model.Accounts">
+                    <option value="0">کاربر...</option>
+                </select>
+                <button type="submit" class="btn btn-success mr-1">جستجو</button>
+                <a asp-page="./Index" class="btn btn-primary">مشاهده همه</a>
+            </form>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th>ردیف</th>
+                        <th>نام و نام خانوادگی</th>
+                        <th>نام کاربری</th>
+                        <th>تاریخ ایجاد</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int row = 1;
+                        foreach (var accountClaim in Model.AccountClaims)
+                        {
+                            <tr class="text-center">
+                                <td>@row</td>
+                                <td>@accountClaim.AccountFullName</td>
+                                <td>@accountClaim.AccountUserName</td>
+                                <td>@accountClaim.CreationDate</td>
+                                <td>
+                                    <a asp-page="./Edit" asp-route-id="@accountClaim.Id" class="btn btn-warning">ویرایش</a>
+                                    <a asp-page="./Index" asp-page-handler="Remove" asp-route-id="@accountClaim.Id" class="btn btn-danger">حذف ادمین</a>
+                                </td>
+                            </tr>
+                            row += 1;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

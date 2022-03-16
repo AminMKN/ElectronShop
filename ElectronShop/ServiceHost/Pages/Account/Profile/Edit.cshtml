@@ -1,0 +1,85 @@
+﻿@page
+@model ServiceHost.Pages.Account.Profile.EditModel
+@{
+    ViewData["Title"] = "ویرایش اطلاعات شخصی";
+    Layout = "Shared/_AccountLayout";
+    if (Model.Message != null)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی الکترون شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="col-lg-12 col-md-12 col-xs-12">
+    <div class="col-lg-12 col-xs-12 pull-right">
+        <div class="profile-navbar">
+            <div class="profile-navbar-back-alignment">
+                <a asp-page="/Account/Profile/Index" class="profile-navbar-btn-back">بازگشت</a>
+                <h4 class="edit-personal">
+                    @ViewData["Title"]
+                </h4>
+            </div>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Command.Id" value="@Model.Command.Id" />
+            <div class="profile-stats">
+                <div class="form-legal-row">
+                    <div class="col-lg-6 col-xs-12 mx-auto">
+                        <div class="form-legal-col">
+                            <fieldset class="form-legal-fieldset">
+                                <h4 class="form-legal-headline">حساب شخصی</h4>
+                                <div class="form-legal-item">
+                                    <label asp-for="Command.FullName">نام و نام خانوادگی</label>
+                                    <input asp-for="Command.FullName" type="text" class="input-name-first" placeholder="نام و نام خانوادگی">
+                                    <span asp-validation-for="Command.FullName" class="text-danger"></span>
+                                </div>
+                                <div class="form-legal-item">
+                                    <label asp-for="Command.UserName">نام کاربری</label>
+                                    <input asp-for="Command.UserName" type="text" class="input-name-first" placeholder="نام کاربری">
+                                    <span asp-validation-for="Command.UserName" class="text-danger"></span>
+                                </div>
+                                <div class="form-legal-item">
+                                    <label asp-for="Command.Email">ایمیل</label>
+                                    <input asp-for="Command.Email" type="email" class="input-name-last" placeholder="ایمیل">
+                                    <span asp-validation-for="Command.Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-legal-item">
+                                    <label asp-for="Command.PhoneNumber">شماره موبایل</label>
+                                    <input asp-for="Command.PhoneNumber" type="tel" class="input-name-last" placeholder="شماره موبایل">
+                                    <span asp-validation-for="Command.PhoneNumber" class="text-danger"></span>
+                                </div>
+                                <div class="form-legal-item">
+                                    <label asp-for="Command.ProfilePhoto">تصویر پروفایل</label>
+                                    <input asp-for="Command.ProfilePhoto" type="file" class="input-name-last" placeholder="تصویر پروفایل" accept="image/*">
+                                    <span asp-validation-for="Command.ProfilePhoto" class="text-danger"></span>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-legal-row-submit">
+                    <div class="parent-btn">
+                        <button type="submit" class="dk-btn dk-btn-info">
+                            ویرایش اطلاعات شخصی
+                            <i class="fa fa-check sign-in"></i>
+                        </button>
+                    </div>
+                    <a asp-page="/Account/Profile/Index" class="btn-default">انصراف</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

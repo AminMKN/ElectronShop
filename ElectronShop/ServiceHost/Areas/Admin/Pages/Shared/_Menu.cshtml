@@ -1,0 +1,131 @@
+﻿<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <li class="nav-item active">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fa fa-donate"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3"> ElectronShop </div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <a asp-page="/Index" class="nav-link">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>داشبورد</span>
+        </a>
+    </li>
+
+    @{
+        if (ClaimChecker.CheckShopManagementClaim())
+        {
+            <li class="nav-item">
+                <hr class="sidebar-divider">
+                <div class="sidebar-heading">
+                    مدیریت
+                </div>
+                <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseShop" aria-expanded="true" aria-controls="collapseShop">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>فروشگاه</span>
+                </a>
+                <div id="collapseShop" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">جزئیات:</h6>
+                        <a asp-page="/Shop/Products/Index" class="collapse-item">‌محصولات</a>
+                        <a asp-page="/Shop/ProductPictures/Index" class="collapse-item">‌عکس محصولات</a>
+                        <a asp-page="/Shop/ProductCategories/Index" class="collapse-item">گروه محصولات</a>
+                        <a asp-page="/Shop/ProductSubCategories/Index" class="collapse-item">زیر گروه محصولات</a>
+                        <a asp-page="/Shop/Amazings/Index" class="collapse-item">شگفت انگیزها</a>
+                        <a asp-page="/Shop/Orders/Index" class="collapse-item">سفارشات</a>
+                    </div>
+                </div>
+            </li>
+        }
+
+        if (ClaimChecker.CheckInventoryManagementClaim())
+        {
+            <li class="nav-item">
+                <hr class="sidebar-divider">
+                <div class="sidebar-heading">
+                    مدیریت
+                </div>
+                <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseInventory" aria-expanded="true" aria-controls="collapseInventory">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>انبارداری</span>
+                </a>
+                <div id="collapseInventory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">جزئیات:</h6>
+                        <a asp-page="/Inventory/Index" class="collapse-item">‌انبارداری</a>
+                    </div>
+                </div>
+            </li>
+        }
+
+        if (ClaimChecker.CheckDiscountManagementClaim())
+        {
+            <li class="nav-item">
+                <hr class="sidebar-divider">
+                <div class="sidebar-heading">
+                    مدیریت
+                </div>
+                <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseDiscount" aria-expanded="true" aria-controls="collapseDiscount">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>تخفیفات</span>
+                </a>
+                <div id="collapseDiscount" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">جزئیات:</h6>
+                        <a asp-page="/Discounts/Index" class="collapse-item">‌تخفیفات</a>
+                    </div>
+                </div>
+            </li>
+        }
+
+        if (ClaimChecker.CheckAccountManagementClaim())
+        {
+            <li class="nav-item">
+                <hr class="sidebar-divider">
+                <div class="sidebar-heading">
+                    مدیریت
+                </div>
+                <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseAccount" aria-expanded="true" aria-controls="collapseAccount">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>امنیت</span>
+                </a>
+                <div id="collapseAccount" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">جزئیات:</h6>
+                        <a asp-page="/Account/Users/Index" class="collapse-item">‌مدیریت کاربران</a>
+                        <a asp-page="/Account/UserClaims/Index" class="collapse-item">‌مدیریت دسترسی کاربران</a>
+                    </div>
+                </div>
+            </li>
+        }
+
+        if (ClaimChecker.CheckCommentManagementClaim())
+        {
+            <li class="nav-item">
+                <hr class="sidebar-divider">
+                <div class="sidebar-heading">
+                    مدیریت
+                </div>
+                <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseComment" aria-expanded="true" aria-controls="collapseComment">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>نظرات</span>
+                </a>
+                <div id="collapseComment" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">جزئیات:</h6>
+                        <a asp-page="/Comments/Index" class="collapse-item">‌مدیریت نظرات</a>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <hr class="sidebar-divider">
+                <div class="text-center d-none d-md-inline" style="padding-right: 90px;">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
+            </li>
+        }
+    }
+</ul>

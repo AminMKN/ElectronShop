@@ -1,0 +1,157 @@
+﻿@page
+@model ServiceHost.Pages.CartModel
+@{
+    ViewData["Title"] = "سبد خرید";
+}
+
+@{
+    if (Model.EmptyCart != null)
+    {
+        <div class="col-12">
+            <div class="cart-page">
+                <div class="container">
+                    <div class="checkout-empty">
+                        <div class="checkout-empty-empty-cart-icon"></div>
+                        <div class="checkout-empty-title">سبد خرید شما خالی است!</div>
+                        <div class="col-lg-6 col-md-6!important col-xs-12 mx-auto">
+                            <div class="checkout-empty-links">
+                                <p>
+                                    می‌توانید برای مشاهده محصولات بیشتر به صفحات زیر بروید
+                                </p>
+                                <div class="checkout-empty-link-urls">
+                                    <a asp-page="/Discount">
+                                        تخفیف‌ ها
+                                    </a>
+                                    <a asp-page="/Offer">
+                                        پیشنهاد ها
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div style="margin-top: 120px;">
+            <nav class="shopping-page">
+                <div class="container">
+                    <div class="header-shopping-logo">
+                        <a asp-page="/Index"><img src="~/Theme/assets/images/shoplogo.jpg" alt="ElectronShop" title="ElectronShop"></a>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <ul class="checkout-steps">
+                            <li class="is-completed">
+                                <a class="checkout-steps-item-link active-link-shopping">
+                                    <span>سبد خرید</span>
+                                </a>
+                            </li>
+                            <li class="is-completed">
+                                <a class="checkout-steps-item active-link">
+                                    <span>پرداخت</span>
+                                </a>
+                            </li>
+                            <li class="is-active">
+                                <a class="checkout-steps-item active-link">
+                                    <span>اتمام خرید و ارسال</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="col-12">
+            <div class="page-content">
+                <div class="col-lg-4 col-md-4 col-xs-12 pull-right">
+                    <div class="checkout-tab">
+                        <div class="checkout-tab-pill listing-active-cart">
+                            سبد خرید
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-tab-main">
+                <div class="col-lg-9 col-md-9 col-xs-12 pull-right">
+                    <div class="page-content-cart">
+                        @{
+                            foreach (var cartItem in Model.CartItems.Where(x => !x.InStock))
+                            {
+                                <div class="alert alert-warning text-dark">
+                                    <i class="fa fa-warning"></i>
+                                    کالای @cartItem.Name کمتر از تعداد درخواستی در انبار موجود است
+                                </div>
+                            }
+                        }
+                        <div class="header-express">
+                            <span class="checkout-header-title"><i class="fa fa-truck"></i>ارسال عادی</span>
+                            <span class="checkout-header-delivery-cost">هزینه ارسال: رایگان</span>
+                        </div>
+                        @{
+                            foreach (var cartItem in Model.CartItems)
+                            {
+                                <div class="checkout-body">
+                                    <a asp-page-handler="RemoveFromCart" asp-route-id="@cartItem.Id" class="remove-from-cart"><i class="mdi mdi-close"></i></a>
+                                    <a class="col-thumb">
+                                        <img src="~/Pictures/@cartItem.Picture" alt="@cartItem.Name" title="@cartItem.Name">
+                                    </a>
+                                    <div class="checkout-col-desc">
+                                        <a>
+                                            <h3>
+                                                @cartItem.Name
+                                            </h3>
+                                        </a>
+                                        <div class="checkout-variant-color">
+                                            <div class="checkout-guarantee">
+                                                <i class="fa fa-check"></i>
+                                                گارانتی ۱۸ ماهه
+                                            </div>
+                                            <div class="checkout-dealer"><i class="fa fa-check"></i>الکترون شاپ</div>
+                                        </div>
+                                        <div class="quantity">
+                                            <input onchange="changeCartItemCount('@cartItem.Id', 'totalItemPrice-@cartItem.Id', this.value)" value="@cartItem.Count" type="number" min="1" max="10" step="1">
+                                        </div>
+                                        <a class="add-to-sfl">
+                                            <div class="cart-item-product-price">
+                                                <span>
+                                                    قیمت واحد:
+                                                </span>
+                                                <span>@cartItem.Price.ToMoney()</span>
+                                                <span>
+                                                    تومان
+                                                </span>
+                                                <br />
+                                                <span>
+                                                    قیمت کل:
+                                                </span>
+                                                <span id="totalItemPrice-@cartItem.Id">@cartItem.TotalAmount.ToMoney()</span>
+                                                <span>
+                                                    تومان
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        <div class="checkout-to-shipping-sticky">
+                            <a asp-page-handler="GoToCheckout" class="selenium-next-step-shipping">ادامه فرآیند خرید</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-xs-12 pull-left">
+                    <div class="page-aside">
+
+                        <div class="checkout-summary-content">
+                            <p>کالاهای موجود در سبد شما ثبت و رزرو نشده‌اند، برای ثبت سفارش مراحل بعدی را تکمیل کنید.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

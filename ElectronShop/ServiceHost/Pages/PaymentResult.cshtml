@@ -1,0 +1,78 @@
+﻿@page
+@model ServiceHost.Pages.PaymentResultModel
+@{
+    ViewData["Title"] = "اتمام خرید و ارسال";
+}
+<div style="margin-top: 120px;">
+    <nav class="shopping-page">
+        <div class="container">
+            <div class="header-shopping-logo">
+                <a asp-page="/Index"><img src="~/Theme/assets/images/shoplogo.jpg" alt="ElectronShop" title="ElectronShop"></a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <ul class="checkout-steps">
+                    <li class="is-completed is-completed-active">
+                        <a class="checkout-steps-item-link active-link-shopping">
+                            <span>سبد خرید</span>
+                        </a>
+                    </li>
+                    <li class="is-completed is-completed-active">
+                        <a class="checkout-steps-item-link active-link-shopping">
+                            <span>پرداخت</span>
+                        </a>
+                    </li>
+                    <li class="is-active">
+                        <a class="checkout-steps-item-link active-link-shopping">
+                            <span>اتمام خرید و ارسال</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="main-shopping">
+    <div class="col-12 text-center">
+        <div class="complate-page-container">
+            <div class="success-checkout">
+                @{
+                    if (Model.Result.IsSuccessful)
+                    {
+                        <div class="container">
+                            <div class="icon-success">
+                                <span class="fa fa-check"></span>
+                            </div>
+                            <div class="order-success">
+                                <span class="text-success">
+                                    @Model.Result.Message
+                                </span>
+                                @{
+                                    if (!string.IsNullOrWhiteSpace(Model.Result.IssueTrackingNo))
+                                    {
+                                        <a class="order-code">شماره پیگیری: @Model.Result.IssueTrackingNo</a>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="container">
+                            <div class="icon-success warning">
+                                <span class="fa fa-close"></span>
+                            </div>
+                            <div class="order-success">
+                                <span class="text-danger">
+                                    @Model.Result.Message
+                                </span>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

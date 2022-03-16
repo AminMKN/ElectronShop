@@ -1,0 +1,51 @@
+﻿@model List<_02_ElectronShopQuery.Contracts.Product.ProductQueryModel>
+
+<div class="col-lg-2 col-md-12 col-xs-12 mb-3 pull-left">
+    <div class="slider-sidebar">
+        <div class="widget-suggestion widget card">
+            <header class="card-header promo-single-headline">
+                <h3 class="card-title">پیشنهاد لحظه‌ای</h3>
+            </header>
+            <div id="progressBar">
+                <div class="slide-progress" style="width: 100%; transition: width 5000ms ease 0s;"></div>
+            </div>
+            <div id="suggestion-slider" class="owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
+                <div class="owl-stage-outer">
+                    <div class="owl-stage" style="transform: translate3d(1369px, 0px, 0px); transition: all 0.25s ease 0s; width: 2190px;">
+                        @{
+                            foreach (var product in Model)
+                            {
+                                <div class="owl-item " style="width: 273.75px;">
+                                    <div class="item">
+                                        <a asp-page="/Product" asp-route-id="@product.Slug">
+                                            <img src="~/Pictures/@product.Picture" alt="@product.PictureAlt" title="@product.PictureTitle" class="w-100">
+                                        </a>
+                                        <h3 class="product-title">
+                                            <a asp-page="/Product" asp-route-id="@product.Slug">@product.Name</a>
+                                        </h3>
+                                        @{
+                                            if (product.HasDiscount)
+                                            {
+                                                <div class="price">
+                                                    <del><span class="amount">@product.Price.ToMoney()<span>تومان</span></span></del>
+                                                    <span class="amount">@product.PriceWithDiscount.ToMoney()<span>تومان</span></span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="price">
+                                                    <span class="amount">@product.Price.ToMoney()<span>تومان</span></span>
+                                                </div>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

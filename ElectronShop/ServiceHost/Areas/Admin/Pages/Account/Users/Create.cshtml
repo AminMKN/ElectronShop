@@ -1,0 +1,94 @@
+﻿@page
+@model ServiceHost.Areas.Admin.Pages.Account.Users.CreateModel
+@{
+    ViewData["Title"] = "ایجاد کاربر جدید";
+    if (Model.Message != null && Model.IsSuccess)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی الکترون شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message != null && !Model.IsSuccess)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی الکترون شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">@ViewData["Title"]</h6>
+    </div>
+    <form method="post">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Command.FullName">نام و نام خانوادگی</label>
+                        <input asp-for="Command.FullName" type="text" class="form-control" placeholder="نام و نام خانوادگی" />
+                        <span asp-validation-for="Command.FullName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Command.UserName">نام کاربری</label>
+                        <input asp-for="Command.UserName" type="text" class="form-control" placeholder="نام کاربری" />
+                        <span asp-validation-for="Command.UserName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Command.Email">ایمیل</label>
+                        <input asp-for="Command.Email" type="email" class="form-control" placeholder="ایمیل" />
+                        <span asp-validation-for="Command.Email" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Command.PhoneNumber">شماره موبایل</label>
+                        <input asp-for="Command.PhoneNumber" type="tel" class="form-control" placeholder="شماره موبایل" />
+                        <span asp-validation-for="Command.PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Command.Password">کلمه عبور</label>
+                        <input asp-for="Command.Password" type="password" class="form-control" placeholder="کلمه عبور" />
+                        <span asp-validation-for="Command.Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Command.RePassword">تکرار کلمه عبور</label>
+                        <input asp-for="Command.RePassword" type="password" class="form-control" placeholder="تکرار کلمه عبور" />
+                        <span asp-validation-for="Command.RePassword" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-success">ایجاد</button>
+            <a class="btn btn-primary" asp-page="./Index">بازگشت</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

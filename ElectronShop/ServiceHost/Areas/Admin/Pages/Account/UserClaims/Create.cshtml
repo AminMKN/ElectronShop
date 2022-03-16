@@ -1,0 +1,91 @@
+﻿@page
+@model ServiceHost.Areas.Admin.Pages.Account.UserClaims.CreateModel
+@{
+    ViewData["Title"] = "ایجاد دسترسی کاربر جدید";
+    if (Model.Message != null && Model.IsSuccess)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی الکترون شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message != null && !Model.IsSuccess)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی الکترون شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">@ViewData["Title"]</h6>
+    </div>
+    <form method="post">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Command.AccountId">کاربر</label>
+                        <select class="form-control" asp-for="Command.AccountId" asp-items="Model.Accounts">
+                            <option value="0">کاربر...</option>
+                        </select>
+                        <span asp-validation-for="Command.AccountId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input asp-for="Command.ShopManagement" type="checkbox" />
+                        <label asp-for="Command.ShopManagement" class="form-check-label mr-1">مدیریت فروشگاه</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input asp-for="Command.InventoryManagement" type="checkbox" />
+                        <label asp-for="Command.InventoryManagement" class="form-check-label mr-1">مدیریت انبار</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input asp-for="Command.DiscountManagement" type="checkbox" />
+                        <label asp-for="Command.DiscountManagement" class="form-check-label mr-1">مدیریت نخفیفات</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input asp-for="Command.CommentManagement" type="checkbox" />
+                        <label asp-for="Command.CommentManagement" class="form-check-label mr-1">مدیریت کامنت ها</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input asp-for="Command.AccountManagement" type="checkbox" />
+                        <label asp-for="Command.AccountManagement" class="form-check-label mr-1">مدیریت کاربران</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-success">ایجاد</button>
+            <a class="btn btn-primary" asp-page="./Index">بازگشت</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,62 @@
+﻿@page
+@model ServiceHost.Areas.Admin.Pages.Comments.IndexModel
+@{
+    ViewData["Title"] = "نظرات";
+}
+
+<h1 class="h3 mb-2 text-gray-800">@ViewData["Title"]</h1>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="form-group">
+            <form class="form-inline" method="get">
+                <input asp-for="SearchModel.IsConfirmed" type="checkbox" class="form-check-input mr-1" />
+                <label asp-for="SearchModel.IsConfirmed" class="form-check-label mr-1">جستجو در تایید شده ها</label>
+                <button type="submit" class="btn btn-success mr-1">جستجو</button>
+                <a asp-page="./Index" class="btn btn-primary">مشاهده همه</a>
+            </form>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="text-center">
+                        <th>ردیف</th>
+                        <th>نام کاربری</th>
+                        <th>متن نظر</th>
+                        <th>تاریخ ایجاد</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int row = 1;
+                        foreach (var comment in Model.Comments)
+                        {
+                            <tr class="text-center">
+                                <td>@row</td>
+                                <td>@comment.Name</td>
+                                <td>@comment.Message</td>
+                                <td>@comment.CreationDate</td>
+                                <td>
+                                    @{
+                                        if (comment.IsConfirmed)
+                                        {
+                                            <a asp-page="./Index" asp-page-handler="Cancel" asp-route-id="@comment.Id" class="btn btn-danger">حذف نظر</a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-page="./Index" asp-page-handler="Confirm" asp-route-id="@comment.Id" class="btn btn-success">تایید نظر</a>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                             row += 1;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

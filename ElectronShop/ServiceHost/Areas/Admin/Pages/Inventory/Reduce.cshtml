@@ -1,0 +1,66 @@
+﻿@page "{id}"
+@model ServiceHost.Areas.Admin.Pages.Inventory.ReduceModel
+@{
+    ViewData["Title"] = "کاهش موجودی";
+    if (Model.Message != null && Model.IsSuccess)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی الکترون شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message != null && !Model.IsSuccess)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی الکترون شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">@ViewData["Title"]</h6>
+    </div>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="Command.InventoryId" value="@Model.Command.InventoryId" />
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Command.Count">تعداد</label>
+                        <input asp-for="Command.Count" type="number" min="1" class="form-control" placeholder="تعداد" />
+                        <span asp-validation-for="Command.Count" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Command.Description">توضیحات</label>
+                        <input asp-for="Command.Description" type="text" class="form-control" placeholder="توضیحات" />
+                        <span asp-validation-for="Command.Description" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-success">کاهش</button>
+            <a class="btn btn-primary" asp-page="./Index">بازگشت</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

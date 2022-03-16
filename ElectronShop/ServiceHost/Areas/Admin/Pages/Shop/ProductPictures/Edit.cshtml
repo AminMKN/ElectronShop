@@ -1,0 +1,85 @@
+﻿@page "{id}"
+@model ServiceHost.Areas.Admin.Pages.Shop.ProductPictures.EditModel
+@{
+    ViewData["Title"] = "ویرایش عکس محصول";
+    if (Model.Message != null && Model.IsSuccess)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی الکترون شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+    else if (Model.Message != null && !Model.IsSuccess)
+    {
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: '@Model.Message',
+                text: 'فروشگاه اینترنتی الکترون شاپ',
+                confirmButtonText: 'باشه',
+            })
+        </script>
+    }
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">@ViewData["Title"]</h6>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="Command.Id" value="@Model.Command.Id" />
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Command.Picture">عکس</label>
+                        <input asp-for="Command.Picture" type="file" class="form-control" placeholder="عکس" accept="image/*" />
+                        <span asp-validation-for="Command.Picture" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Command.PictureAlt">متن جایگزین عکس</label>
+                        <input asp-for="Command.PictureAlt" type="text" class="form-control" placeholder="متن جایگزین عکس" />
+                        <span asp-validation-for="Command.PictureAlt" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Command.PictureTitle">عنوان عکس</label>
+                        <input asp-for="Command.PictureTitle" type="text" class="form-control" placeholder="عنوان عکس" />
+                        <span asp-validation-for="Command.PictureTitle" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Command.ProductId">محصول</label>
+                        <select class="form-control" asp-for="Command.ProductId"
+                                asp-items="Model.Products">
+                            <option value="0">محصول...</option>
+                        </select>
+                        <span asp-validation-for="Command.ProductId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-info">ویرایش</button>
+            <a class="btn btn-primary" asp-page="./Index">بازگشت</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

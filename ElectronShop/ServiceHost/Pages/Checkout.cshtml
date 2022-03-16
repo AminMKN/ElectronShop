@@ -1,0 +1,171 @@
+﻿@page
+@model ServiceHost.Pages.CheckoutModel
+@{
+    ViewData["Title"] = "تکمیل فرایند خرید";
+}
+
+<div style="margin-top: 120px;">
+    <nav class="shopping-page">
+        <div class="container">
+            <div class="header-shopping-logo">
+                <a asp-page="/Index"><img src="~/Theme/assets/images/shoplogo.jpg" alt="ElectronShop" title="ElectronShop"></a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <ul class="checkout-steps">
+                    <li class="is-completed is-completed-active">
+                        <a class="checkout-steps-item-link active-link-shopping">
+                            <span>سبد خرید</span>
+                        </a>
+                    </li>
+                    <li class="is-completed">
+                        <a class="checkout-steps-item-link active-link-shopping">
+                            <span>پرداخت</span>
+                        </a>
+                    </li>
+                    <li class="is-active">
+                        <a class="checkout-steps-item active-link">
+                            <span>اتمام خرید و ارسال</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="col-12">
+    <div class="page-content">
+        <div class="col-lg-4 col-md-4 col-xs-12 pull-right">
+            <div class="checkout-tab">
+                <div class="checkout-tab-pill listing-active-cart">
+                    سبد خرید
+                </div>
+            </div>
+        </div>
+    </div>
+    <form method="post">
+        <div class="cart-tab-main">
+            <div class="col-lg-9 col-md-9 col-xs-12 pull-right">
+                <div class="page-content-cart">
+                    <div class="header-express">
+                        <span class="checkout-header-title"><i class="fa fa-truck"></i>ارسال عادی</span>
+                        <span class="checkout-header-delivery-cost">هزینه ارسال: رایگان</span>
+                    </div>
+                    @{
+                        foreach (var cartItem in Model.Cart.CartItems)
+                        {
+                            <div class="checkout-body">
+                                <a class="col-thumb">
+                                    <img src="~/Pictures/@cartItem.Picture" alt="@cartItem.Name" title="@cartItem.Name">
+                                </a>
+                                <div class="checkout-col-desc">
+                                    <a>
+                                        <h3>
+                                            @cartItem.Name
+                                        </h3>
+                                    </a>
+                                    <div class="checkout-variant-color">
+                                        <div class="checkout-guarantee">
+                                            <i class="fa fa-check"></i>
+                                            گارانتی ۱۸ ماهه
+                                        </div>
+                                        <div class="checkout-dealer">
+                                            <i class="fa fa-check"></i>
+                                            الکترون شاپ
+                                        </div>
+                                        <div class="checkout-dealer">
+                                            <i class="fa fa-check"></i>
+                                            تعداد: @cartItem.Count
+                                        </div>
+                                    </div>
+                                    <a class="add-to-sfl ">
+                                        <div class="cart-item-product-price pull-right">
+                                            <span>
+                                                قیمت واحد:
+                                            </span>
+                                            <span>@cartItem.Price.ToMoney() تومان</span>
+                                            |
+                                            <span>
+                                                درصد تخفیف:
+                                            </span>
+                                            <span>@cartItem.DiscountRate%</span>
+                                            |
+                                            <span>
+                                                مبلغ کل بدون تخفیف:
+                                            </span>
+                                            <span>@cartItem.TotalAmount.ToMoney() تومان</span>
+                                            |
+                                            <span>
+                                                مبلغ کل تخفیف:
+                                            </span>
+                                            <span>@cartItem.DiscountAmount.ToMoney() تومان</span>
+                                            |
+                                            <span>
+                                                مبلغ پس از تخفیف:
+                                            </span>
+                                            <span>@cartItem.PayAmount.ToMoney() تومان</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="checkout-to-shipping-sticky">
+                    <button asp-page-handler="Pay" class="selenium-next-step-shipping">
+                        پرداخت
+                    </button>
+                    <div class="checkout-to-shipping-price-report">
+                        <p>مبلغ قابل پرداخت</p>
+                        <div class="cart-item-product-price">
+                            @Model.Cart.PayAmount.ToMoney()
+                            <span>
+                                تومان
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-xs-12 pull-left">
+                <div class="page-aside">
+                    <div class="checkout-summary">
+                        <ul class="checkout-summary-summary">
+                            <li>
+                                <span>مبلغ نهایی:</span>
+                                <span>@Model.Cart.TotalAmount.ToMoney() تومان</span>
+                            </li>
+                            <li>
+                                <span>مبلغ تخفیف:</span>
+                                <span>@Model.Cart.DiscountAmount.ToMoney() تومان</span>
+                            </li>
+                            <li>
+                                <span style="color: #424750; font-size:14px;">هزینه ارسال</span>
+                                <span></span>
+                            </li>
+                            <li>
+                                <span><i class="fa fa-truck"></i>ارسال عادی</span>
+                                <span>رایگان</span>
+                            </li>
+                            <li>
+                                <span>مبلغ قابل پرداخت</span>
+                                <span>@Model.Cart.PayAmount.ToMoney() تومان</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="checkout-summary-content">
+                        <p>کالاهای موجود در سبد شما ثبت و رزرو نشده‌اند، برای ثبت سفارش مراحل بعدی را تکمیل کنید.</p>
+                    </div>
+                    <div class="form-group">
+                        <label>کد پستی</label>
+                        <input id="postalCode" name="postalCode" class="form-control" placeholder="کد پستی" type="number" maxlength="20" min="1" required />
+                    </div>
+                    <div class="form-group">
+                        <label>آدرس</label>
+                        <textarea id="address" name="address" class="form-control" placeholder="آدرس" rows="3" maxlength="500" required></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
