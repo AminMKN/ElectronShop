@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\01_Framework\01_Framework.csproj" />
+    <ProjectReference Include="..\DiscountManagement.Application.Contracts\DiscountManagement.Application.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
